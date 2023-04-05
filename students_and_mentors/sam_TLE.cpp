@@ -10,28 +10,19 @@ int main() {
   for (ll p = 0; p < T; p++) {
     ll N;
     cin >> N;
-    vector<ll> v(N);
+    vector<int> v(N);
     for (auto &x : v) {
       cin >> x;
     }
-    vector<ll> w = v;
-    vector<ll> ans;
-    sort(w.begin(), w.end());
-    for (auto &x : v) {
-      auto it = upper_bound(w.begin(), w.end(), 2 * x);
-      it--;
-      if (*it != x) {
-        ans.push_back(*it);
-      } else if (it == w.begin()) {
-        ans.push_back(-1);
-      } else {
-        it--;
-        ans.push_back(*it);
-      }
-    }
     cout << "Case #" << p + 1 << ": ";
-    for (auto &x : ans) {
-      cout << x << " ";
+    for (int i = 0; i < N; i++) {
+      int current = INT_MIN;
+      for (int j = 0; j < N; j++) {
+        if (i != j && v[j] <= 2 * v[i]) {
+          current = max(current, v[j]);
+        }
+      }
+      cout << ((current != INT_MIN) ? current : -1) << " ";
     }
     cout << '\n';
   }
